@@ -4,15 +4,23 @@ pipeline {
     stage('Stage 1') {
       parallel {
         stage('Stage 1') {
-          steps {
-            node(label: 'EInvoice') {
-              echo 'This stage is handled on EInvoice box'
+          agent {
+            node {
+              label 'EInvoice'
             }
 
+          }
+          steps {
             sh '/e2open/bin/setup list'
           }
         }
         stage('Stage 2') {
+          agent {
+            node {
+              label 'devbox'
+            }
+
+          }
           steps {
             node(label: 'devbox') {
               echo 'handled on e2dev0107'
