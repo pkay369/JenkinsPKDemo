@@ -46,5 +46,13 @@ pipeline {
         echo 'Going to Deploy on all boxes in parallel'
       }
     }
+    stage('') {
+      steps {
+        timeout(time: 30, unit: 'SECONDS') {
+          sleep 45
+        }
+
+      }
+    }
   }
 }
