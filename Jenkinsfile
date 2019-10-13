@@ -2,38 +2,14 @@ pipeline {
   agent none
   stages {
     stage('Stage 1') {
-      parallel {
-        stage('Stage 1') {
-          agent {
-            node {
-              label 'AdminPSR262'
-            }
-
-          }
-          steps {
-            sh '/e2open/bin/setup list'
-          }
+      agent {
+        node {
+          label 'EnginePSR272'
         }
-        stage('Stage 2') {
-          agent {
-            node {
-              label 'devbox'
-            }
 
-          }
-          steps {
-            node(label: 'devbox') {
-              echo 'handled on e2dev0107'
-            }
-
-            sh '/e2open/bin/setup list'
-          }
-        }
-        stage('Stage 3') {
-          steps {
-            echo 'Dummy Stage'
-          }
-        }
+      }
+      steps {
+        sh '/e2open/bin/setup status'
       }
     }
     stage('Manual Verification') {
@@ -42,16 +18,19 @@ pipeline {
       }
     }
     stage('Stage Final') {
-      steps {
-        echo 'Going to Deploy on all boxes in parallel'
-      }
-    }
-    stage('error') {
-      steps {
-        timeout(time: 30, unit: 'SECONDS') {
-          sleep 45
+      agent {
+        node {
+          label 'AdminPSR262'
         }
 
+      }
+      steps {
+        sh '/e2open/bin/setup status'
+      }
+    }
+    stage('Manual Verification Admin') {
+      steps {
+        input 'Verify Admin Logs and Confirm to proceed.'
       }
     }
   }
