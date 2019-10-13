@@ -9,7 +9,9 @@ pipeline {
 
       }
       steps {
-        sh '/e2open/bin/setup status'
+        sh '''/e2open/bin/setup stop
+
+/e2open/bin/setup start'''
       }
     }
     stage('Manual Verification') {
@@ -25,7 +27,9 @@ pipeline {
 
       }
       steps {
-        sh '/e2open/bin/setup status'
+        sh '''/e2open/bin/setup stop
+
+/e2open/bin/setup start'''
       }
     }
     stage('Manual Verification Admin') {
