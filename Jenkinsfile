@@ -6,7 +6,7 @@ pipeline {
         stage('Stage 1') {
           agent {
             node {
-              label 'EInvoice'
+              label 'AdminPSR262'
             }
 
           }
@@ -46,7 +46,7 @@ pipeline {
         echo 'Going to Deploy on all boxes in parallel'
       }
     }
-    stage('') {
+    stage('error') {
       steps {
         timeout(time: 30, unit: 'SECONDS') {
           sleep 45
