@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('Stage 1') {
+    stage('Engine Restart') {
       agent {
         node {
           label 'EnginePSR272'
@@ -9,7 +9,9 @@ pipeline {
 
       }
       steps {
-        sh '''/e2open/bin/setup stop
+        sh '''/e2open/bin/setup forcestop
+
+/e2open/bin/setup stop
 
 /e2open/bin/setup start'''
       }
