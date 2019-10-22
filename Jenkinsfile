@@ -9,11 +9,12 @@ pipeline {
 
       }
       steps {
-        sh '''/e2open/bin/setup forcestop
+        warnError(message: 'set unstable')
+        node(label: 'DEV-812') {
+          sh 'testing'
+        }
 
-/e2open/bin/setup stop
-
-/e2open/bin/setup start'''
+        catchError(buildResult: 'pkay result', message: 'pkay msg', stageResult: '0')
       }
     }
     stage('Manual Verification') {
